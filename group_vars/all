@@ -1,9 +1,7 @@
 #################################### k8s version ####################################
 # k8s release version
-# v1.9.8
-# v1.10.7
-# v1.11.2
-k8s_release: v1.11.2
+# v1.14.1
+k8s_release: v1.14.1
 
 #################################### docker pause images ############################
 pause_image: registry.docker-cn.com/zdq0394/pause-amd64:3.1

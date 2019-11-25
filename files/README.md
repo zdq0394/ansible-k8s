@@ -1,1 +1,3 @@
-Just for test.
+# files
+* files/etcd
+* k8sbin/
