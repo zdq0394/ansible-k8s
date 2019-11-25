@@ -9,6 +9,7 @@
     - scheduler
     - kube-proxy
     - kubelet
+    - kube-deps
 
 - include_tasks: uninstall.yaml
   tags:
@@ -21,3 +22,4 @@
     - master
     - node
     - cert
+    - kube-deps

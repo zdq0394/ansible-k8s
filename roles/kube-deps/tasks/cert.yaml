@@ -7,6 +7,7 @@
     - master
     - node
     - cert
+    - kube-deps
 
 - name: Configure serviceaccount key/pub
   copy: 
@@ -35,3 +36,4 @@
     - master
     - node
     - cert
+    - kube-deps

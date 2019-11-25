@@ -17,4 +17,26 @@
     - scheduler
     - kube-proxy
     - kubelet
+    - kube-deps
+
+---
+- name: Create kubernetes systemd cgroup directory
+  file: path={{ item }} state=directory
+  with_items:
+    - "/sys/fs/cgroup/cpuset/system.slice"
+    - "/sys/fs/cgroup/cpuset/user.slice"
+    - "/sys/fs/cgroup/freezer/system.slice"
+    - "/sys/fs/cgroup/freezer/user.slice"
+    - "/sys/fs/cgroup/hugetlb/system.slice"
+    - "/sys/fs/cgroup/hugetlb/user.slice"
+  tags:
+    - k8s
+    - master
+    - node
+    - apiserver
+    - controller-manager
+    - scheduler
+    - kube-proxy
+    - kubelet
+    - kube-deps
 
