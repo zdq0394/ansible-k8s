@@ -1,0 +1,12 @@
+---
+- name: remove kubernetes related directory
+  file:
+    path: "{{ item }}"
+    state: "absent"
+  with_items:
+    - "{{ kube_log_dir }}"
+    - "{{ kube_config_dir_prefix }}"
+    - /var/lib/kubernetes
+  tags:
+    - uninstall
+    - uninstall-k8s

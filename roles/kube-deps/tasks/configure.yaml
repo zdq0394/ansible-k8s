@@ -1,0 +1,20 @@
+---
+- name: Create kubernetes related directory
+  file: path={{ item }} state=directory
+  with_items:
+    - "{{ kube_log_dir }}"
+    - "{{ kube_config_dir_prefix }}"
+    - /etc/kubernetes/manifests
+    - /var/lib/kubernetes
+    - /var/lib/kubelet
+    - /var/lib/kube-proxy
+  tags:
+    - k8s
+    - master
+    - node
+    - apiserver
+    - controller-manager
+    - scheduler
+    - kube-proxy
+    - kubelet
+

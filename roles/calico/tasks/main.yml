@@ -1,0 +1,52 @@
+---
+- name: configure calico deployment directory
+  file: path={{ item }} state=directory
+  with_items:
+    - /var/lib/k8s-deploy/calico
+  tags:
+    - k8s
+    - kube-network
+    - calico
+
+- name: copy calico.yaml
+  template: 
+    src: "{{ item }}.yaml.j2"
+    dest: "/var/lib/k8s-deploy/calico/{{ item }}.yaml"
+  with_items:
+    - rbac
+    - calico
+  tags:
+    - k8s
+    - kube-network
+    - calico
+
+- name: deploy calico
+  command: kubectl apply -f /var/lib/k8s-deploy/calico/{{ item }}.yaml
+  with_items:
+    - rbac
+    - calico
+  tags:
+    - k8s
+    - kube-network
+    - calico
+
+- name: undeploy calico
+  command: kubectl delete -f /var/lib/k8s-deploy/calico/{{ item }}.yaml
+  with_items:
+    - rbac
+    - calico
+  tags:
+    - uninstall
+    - uninstall-k8s
+    - uninstall-kube-network
+    - uninstall-calico
+
+- name: remove calico yaml
+  file: 
+    path="/var/lib/k8s-deploy/calico"
+    state="absent"
+  tags:
+    - uninstall
+    - uninstall-k8s
+    - uninstall-kube-network
+    - uninstall-calico

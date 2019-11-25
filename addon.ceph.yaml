@@ -1,0 +1,4 @@
+---
+- hosts: [kubectl-run-host]
+  roles:
+    - ceph

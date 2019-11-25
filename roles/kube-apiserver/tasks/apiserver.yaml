@@ -1,0 +1,47 @@
+---
+- name: Copy apiserver
+  copy:
+      src: k8sbin/{{ k8s_release }}/kube-apiserver
+      dest: /usr/local/bin/kube-apiserver
+      mode: 0755
+  notify: 
+    - Systemd Reload
+    - Restart Kube-apiserver
+  tags: 
+    - k8s
+    - master
+    - apiserver
+
+- name: Config system envfile
+  template: src=etc/kubernetes/kube-apiserver.j2 dest=/etc/kubernetes/kube-apiserver
+  notify: 
+    - Systemd Reload
+    - Restart Kube-apiserver
+  tags: 
+    - k8s
+    - master
+    - apiserver
+
+- name: Config systemd kube-apiserver.service
+  template: src=kube-apiserver.service.j2 dest=/usr/lib/systemd/system/kube-apiserver.service
+  notify: 
+    - Systemd Reload
+    - Restart Kube-apiserver
+  tags: 
+    - k8s
+    - master
+    - apiserver
+
+- name: Systemd Reload
+  command: systemctl daemon-reload
+  tags: 
+    - k8s
+    - master
+    - apiserver
+
+- name: Start kube-apiserver on boot
+  service: name=kube-apiserver.service enabled=True state=started
+  tags: 
+    - k8s
+    - master
+    - apiserver

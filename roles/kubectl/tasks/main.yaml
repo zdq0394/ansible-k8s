@@ -1,0 +1,10 @@
+---
+- include_tasks: kubectl.yaml
+  tags:
+    - kubectl
+    - k8s
+
+- include_tasks: calicoctl.yaml
+  tags:
+    - calicoctl
+    - k8s

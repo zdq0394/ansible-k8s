@@ -1,0 +1,2 @@
+---
+kube_dashboard_image: registry.docker-cn.com/zdq0394/kubernetes-dashboard-amd64:v1.8.3

@@ -1,0 +1,42 @@
+---
+- name: Install Haproxy.
+  package:
+    name: haproxy
+    state: present
+  notify: restart haproxy
+  tags:
+  - haproxy
+  - k8s
+  - master
+
+- name: Ensure /var/run/haproxy exists
+  file: >
+    path=/var/run/haproxy state=directory owner=haproxy group=haproxy
+    mode=2775
+  tags:
+  - haproxy
+  - k8s
+  - master
+
+- name: Install haproxy.cfg
+  template: >
+    src=haproxy.cfg.j2 dest=/etc/haproxy/haproxy.cfg mode=0644
+  notify: restart haproxy
+  tags:
+  - haproxy
+  - k8s
+  - master
+
+- name: Ensure HAProxy is started
+  service: name=haproxy state=started
+  tags:
+  - haproxy
+  - k8s
+  - master
+
+- name: Ensure HAProxy is started and enabled
+  service: name=haproxy state=started enabled=yes
+  tags:
+  - haproxy
+  - k8s
+  - master

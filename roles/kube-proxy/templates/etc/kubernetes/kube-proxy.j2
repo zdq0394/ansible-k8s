@@ -1,0 +1,8 @@
+KUBE_PROXY_ARGS="--bind-address=0.0.0.0 \
+  --proxy-mode=iptables \
+  --cluster-cidr={{ calico_ipv4pool_cidr }} \
+  --hostname-override={{ ansible_default_ipv4.address }} \
+  --kubeconfig=/var/lib/kubernetes/kube-proxy.kubeconfig \
+  --logtostderr=false \
+  --log-dir={{ kube_log_dir }}/kube-proxy \
+  --v=2"

@@ -1,0 +1,47 @@
+---
+- name: Copy kubelet
+  copy:
+      src: k8sbin/{{ k8s_release }}/kubelet
+      dest: /usr/local/bin/kubelet
+      mode: 0755
+  notify: 
+    - Systemd Reload
+    - Restart Kubelet
+  tags: 
+    - k8s
+    - node
+    - kubelet
+
+- name: Copy kubelet env file
+  template: src=etc/kubernetes/kubelet.j2 dest=/etc/kubernetes/kubelet
+  notify: 
+    - Systemd Reload
+    - Restart Kubelet
+  tags: 
+    - k8s
+    - node
+    - kubelet
+
+- name: Config systemd kubelet.service
+  template: src=kubelet.service.j2 dest=/usr/lib/systemd/system/kubelet.service
+  notify: 
+    - Systemd Reload
+    - Restart Kubelet
+  tags: 
+    - k8s
+    - node
+    - kubelet
+
+- name: Systemd Reload
+  command: systemctl daemon-reload
+  tags: 
+    - k8s
+    - node
+    - kubelet
+
+- name: Start kubelet on boot
+  service: name=kubelet.service enabled=True state=started
+  tags: 
+    - k8s
+    - node
+    - kubelet

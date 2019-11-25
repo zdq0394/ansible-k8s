@@ -1,0 +1,18 @@
+KUBE_ETCD_SERVERS="--etcd-servers={{ kube_etcd_servers|join(',') }}"
+KUBE_APISERVER_ARGS="--allow-privileged=true \
+  --insecure-bind-address=0.0.0.0 \
+  --insecure-port=8080 \
+  --bind-address=0.0.0.0 \
+  --secure-port=6443 \
+  --authorization-mode=RBAC \
+  --service-cluster-ip-range={{ service_cluster_ip_range }} \
+  --service-node-port-range={{ service_node_port_range }} \
+  --enable-admission-plugins=SecurityContextDeny,ServiceAccount,NamespaceLifecycle,NamespaceExists,LimitRanger,ResourceQuota \
+  --tls-cert-file={{ server_crt }} \
+  --tls-private-key-file={{ server_key }} \
+  --service-account-key-file={{ service_account_key_file }} \
+  --client-ca-file={{ ca_crt }} \
+  --logtostderr=false \
+  --log-dir={{ kube_log_dir }}/kube-apiserver \
+  --delete-collection-workers=2 \
+  --v=2"

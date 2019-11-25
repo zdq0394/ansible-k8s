@@ -1,0 +1,7 @@
+---
+# handlers file for k8s-node
+- name: Systemd Reload
+  command: systemctl daemon-reload
+
+- name: Restart Kube-Proxy
+  command: systemctl restart kube-proxy.service 

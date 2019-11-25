@@ -1,0 +1,32 @@
+---
+- name: Install ceph-common
+  package: 
+    name: ceph-common
+    state: present
+  tags: 
+    - k8s
+    - node
+    - kubelet
+
+- name: Create kubelet log directory
+  file: 
+    path: "{{ item }}"
+    state: "directory"
+  with_items:
+    - "{{ kube_log_dir }}/kubelet"
+  tags: 
+    - k8s
+    - node
+    - kubelet
+
+- name: Create kubeconfig file for kubelet
+  template: 
+    src: "kubeconfig-node-https.j2"
+    dest: "/var/lib/kubernetes/kubelet.kubeconfig"
+  notify: Systemd Reload
+  tags: 
+    - k8s
+    - node
+    - kubelet
+
+

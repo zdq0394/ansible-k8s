@@ -1,0 +1,13 @@
+---
+- include_tasks: deploy_csi_rbd.yaml
+  when: csi_rbd_enabled
+  tags:
+    - k8s
+    - ceph
+
+- include_tasks: undeploy_csi_rbd.yaml
+  when: csi_rbd_enabled
+  tags:
+    - uninstall
+    - uninstall-k8s
+    - uninstall-ceph

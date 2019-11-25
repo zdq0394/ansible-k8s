@@ -1,0 +1,19 @@
+---
+# handlers file for k8s-master
+- include_tasks: configure.yaml
+  tags:
+    - k8s
+    - master
+    - apiserver
+
+- include_tasks: apiserver.yaml
+  tags:
+    - k8s
+    - master
+    - apiserver
+
+- include_tasks: uninstall.yaml
+  tags:
+    - uninstall
+    - uninstall-k8s
+    - uninstall-kube-apiserver

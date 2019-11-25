@@ -1,0 +1,6 @@
+- name: Install kubectl
+  copy:
+      src: v1.9.8/kubectl
+      dest: /usr/local/bin/kubectl
+      mode: 0755
+

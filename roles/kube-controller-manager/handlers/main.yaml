@@ -1,0 +1,7 @@
+---
+# handlers file for k8s-master
+- name: Systemd Reload
+  command: systemctl daemon-reload
+
+- name: Restart Kube-controller-manager
+  command: systemctl restart kube-controller-manager.service

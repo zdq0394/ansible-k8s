@@ -1,0 +1,3 @@
+heapster_influxdb_image: registry.docker-cn.com/zdq0394/heapster-influxdb-amd64:v1.5.2
+heapster_image: registry.docker-cn.com/zdq0394/heapster-amd64:v1.5.4
+heapster_grafana_image: registry.docker-cn.com/zdq0394/heapster-grafana-amd64:v5.0.4

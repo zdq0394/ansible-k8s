@@ -1,0 +1,59 @@
+---
+- include_tasks: setup-RedHat.yml
+  when: ansible_os_family == 'RedHat'
+  tags:
+  - docker
+
+- include_tasks: setup-Debian.yml
+  when: ansible_os_family == 'Debian'
+  tags:
+  - docker
+
+- name: Install Docker.
+  package:
+    name: "{{ docker_package }}"
+    state: "{{ docker_package_state }}"
+  notify: restart docker
+  tags:
+  - docker
+
+- name: Create docker related directory
+  file: path={{ item }} state=directory
+  with_items:
+    - /etc/docker
+  tags:
+  - docker
+
+- name: Config insecure docker registry
+  template:
+    src: etc/docker/daemon.json.j2
+    dest: /etc/docker/daemon.json
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - restart docker
+  tags:
+  - docker
+
+- name: Ensure Docker is started and enabled at boot.
+  service:
+    name: docker
+    state: "{{ docker_service_state }}"
+    enabled: "{{ docker_service_enabled }}"
+  tags:
+  - docker
+
+- name: Ensure handlers are notified now to avoid firewall conflicts.
+  meta: flush_handlers
+  when: docker_restart_on_package_change
+  tags:
+  - docker
+
+- include_tasks: docker-compose.yml
+  when: docker_install_compose
+  tags:
+    - compose
+
+- include_tasks: docker-users.yml
+  when: docker_users

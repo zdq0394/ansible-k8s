@@ -1,0 +1,7 @@
+---
+# handlers file for k8s-node
+- name: Systemd Reload
+  command: systemctl daemon-reload
+
+- name: Restart Kubelet
+  command: systemctl restart kubelet.service 

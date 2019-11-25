@@ -1,0 +1,3 @@
+---
+autoscaler_image: zdq0394/cluster-proportional-autoscaler-amd64:1.3.0
+coredns_image: coredns/coredns:1.3.1

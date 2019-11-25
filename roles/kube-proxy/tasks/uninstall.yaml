@@ -1,0 +1,18 @@
+---
+- name: stop service kube-proxy
+  service:
+    name: kube-proxy.service
+    state: stopped
+  tags:
+    - uninstall
+    - uninstall-k8s
+    - uninstall-kube-proxy
+
+- name: remove kube-proxy related config
+  file:
+    path: "/usr/lib/systemd/system/kube-proxy.service"
+    state: "absent"
+  tags:
+    - uninstall
+    - uninstall-k8s
+    - uninstall-kube-proxy

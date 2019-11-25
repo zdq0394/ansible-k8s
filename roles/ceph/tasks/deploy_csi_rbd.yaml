@@ -1,0 +1,54 @@
+---
+- name: configure ceph-csi-rbd deployment directory
+  file: path={{ item }} state=directory
+  with_items:
+    - "{{ ceph_deploy_dir }}/csi/rbd"
+    - "{{ ceph_deploy_dir }}/csi/rbd/plugin"
+    - "{{ ceph_deploy_dir }}/csi/rbd/storageclass"
+    - "{{ ceph_deploy_dir }}/csi/rbd/examples"
+  tags:
+    - k8s
+    - ceph
+
+- name: copy ceph-csi-rbd.yaml
+  template: 
+    src: "{{ item }}.yaml.j2"
+    dest: "{{ ceph_deploy_dir }}/{{ item }}.yaml"
+  with_items:
+    - csi/rbd/plugin/csi-attacher-rbac
+    - csi/rbd/plugin/csi-nodeplugin-rbac
+    - csi/rbd/plugin/csi-provisioner-rbac
+    - csi/rbd/plugin/csi-rbdplugin
+    - csi/rbd/plugin/csi-rbdplugin-provisioner
+    - csi/rbd/plugin/csi-rbdplugin-attacher
+    - csi/rbd/storageclass/secret
+    - csi/rbd/storageclass/storageclass
+  tags:
+    - k8s
+    - ceph
+
+- name: copy ceph-csi-rbd example yaml
+  template:
+    src: "{{ item }}"
+    dest: "{{ ceph_deploy_dir }}/{{ item }}"
+  with_items:
+    - csi/rbd/examples/pvc.yaml
+    - csi/rbd/examples/pod.yaml
+  tags:
+    - k8s
+    - ceph
+
+- name: deploy ceph-csi-rbd storage class
+  command: "kubectl apply -f {{ ceph_deploy_dir }}/{{ item }}.yaml"
+  with_items:
+    - csi/rbd/plugin/csi-attacher-rbac
+    - csi/rbd/plugin/csi-nodeplugin-rbac
+    - csi/rbd/plugin/csi-provisioner-rbac
+    - csi/rbd/plugin/csi-rbdplugin
+    - csi/rbd/plugin/csi-rbdplugin-provisioner
+    - csi/rbd/plugin/csi-rbdplugin-attacher
+    - csi/rbd/storageclass/secret
+    - csi/rbd/storageclass/storageclass
+  tags:
+    - k8s
+    - ceph

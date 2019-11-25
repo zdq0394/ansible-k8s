@@ -1,0 +1,14 @@
+[Unit]
+Description=Kubernetes Controller Manager
+After=kube-apiserver.service 
+Requires=kube-apiserver.service
+
+[Service]
+EnvironmentFile=-/etc/kubernetes/kube-controller-manager
+ExecStart=/usr/local/bin/kube-controller-manager \
+        $KUBE_CONTROLLER_ARGS
+Restart=on-failure
+LimitNOFILE=65536
+
+[Install]
+WantedBy=multi-user.target

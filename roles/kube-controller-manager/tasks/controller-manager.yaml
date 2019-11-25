@@ -1,0 +1,55 @@
+- name: Copy controller-manager
+  copy:
+      src: k8sbin/{{ k8s_release }}/kube-controller-manager
+      dest: /usr/local/bin/kube-controller-manager
+      mode: 0755
+  notify: 
+    - Systemd Reload
+    - Restart Kube-controller-manager
+  tags: 
+    - k8s
+    - master
+    - controller-manager
+
+- name: Create kubeconfig file for kube-controller-manager
+  template:
+    src: kubeconfig_https.j2
+    dest: "/var/lib/kubernetes/kube-controller-manager.kubeconfig"
+  tags:
+    - k8s
+    - master
+    - controller-manager
+
+- name: Config system envfile
+  template: src=etc/kubernetes/kube-controller-manager.j2 dest=/etc/kubernetes/kube-controller-manager
+  notify: 
+    - Systemd Reload
+    - Restart Kube-controller-manager
+  tags: 
+    - k8s
+    - master
+    - controller-manager
+
+- name: Config systemd kube-controller-manager.service
+  template: src=kube-controller-manager.service.j2 dest=/usr/lib/systemd/system/kube-controller-manager.service
+  notify:  
+    - Systemd Reload
+    - Restart Kube-controller-manager
+  tags: 
+    - k8s
+    - master
+    - controller-manager
+
+- name: Systemd Reload
+  command: systemctl daemon-reload
+  tags: 
+    - k8s
+    - master
+    - controller-manager
+
+- name: Start kube-controller-manager on boot
+  service: name=kube-controller-manager.service enabled=True state=started
+  tags: 
+    - k8s
+    - master
+    - controller-manager

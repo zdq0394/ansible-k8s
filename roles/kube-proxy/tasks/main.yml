@@ -1,0 +1,19 @@
+---
+# tasks file for k8s-node
+- include_tasks: configure.yaml
+  tags:
+    - k8s
+    - node
+    - kube-proxy
+
+- include_tasks: kube-proxy.yaml
+  tags:
+    - k8s
+    - node
+    - kube-proxy
+
+- include_tasks: uninstall.yaml
+  tags:
+    - uninstall
+    - uninstall-k8s
+    - uninstall-kube-proxy

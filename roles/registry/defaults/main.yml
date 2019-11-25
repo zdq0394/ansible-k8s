@@ -1,0 +1,6 @@
+---
+# defaults file for registry
+registry_version: '2.6'
+registry_image: "registry.docker-cn.com/library/registry:{{registry_version}}"
+registry_port: '5000'
+registry_volume: '/data/registry'

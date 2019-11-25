@@ -1,0 +1,12 @@
+---
+csi_rbd_enabled: True
+rbd_plugin_image: registry.docker-cn.com/zdq0394/cephcsi_rbdplugin:v0.3.0
+driver_registrar_image: registry.docker-cn.com/zdq0394/k8scsi_driver-registrar:v0.3.0
+csi_provisioner_image: registry.docker-cn.com/zdq0394/k8scsi_csi-provisioner:v0.3.0
+csi_attacher_image: registry.docker-cn.com/zdq0394/k8scsi_csi-attacher:v0.3.0
+
+ceph_mons: 172.20.5.206:6789,172.20.5.207:6789,172.20.5.208:6789
+# echo -n "key of client.admin" | base64
+ceph_admin_key: QVFCcmJIcGJDNkRsQmhBQVl5a2kyVnFsTkYvZUpwQWUxeVJNdFE9PQ==
+
+ceph_deploy_dir: "/var/lib/k8s-deploy/ceph"

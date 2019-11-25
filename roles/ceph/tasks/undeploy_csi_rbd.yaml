@@ -1,0 +1,26 @@
+---
+- name: undeploy ceph-csi-rbd storage class
+  command: "kubectl delete -f {{ ceph_deploy_dir }}/{{ item }}.yaml"
+  with_items:
+    - csi/rbd/plugin/csi-attacher-rbac
+    - csi/rbd/plugin/csi-nodeplugin-rbac
+    - csi/rbd/plugin/csi-provisioner-rbac
+    - csi/rbd/plugin/csi-rbdplugin
+    - csi/rbd/plugin/csi-rbdplugin-provisioner
+    - csi/rbd/plugin/csi-rbdplugin-attacher
+    - csi/rbd/storageclass/secret
+    - csi/rbd/storageclass/storageclass
+  tags:
+    - uninstall-k8s
+    - uninstall-ceph
+
+- name: configure ceph-csi-rbd deployment directory
+  file: 
+    path: "{{ item }}"
+    state: "absent"
+  with_items:
+    - "{{ ceph_deploy_dir }}/csi/rbd"
+  tags:
+    - uninstall
+    - uninstall-k8s
+    - uninstall-ceph

@@ -1,0 +1,46 @@
+- name: Install kubectl
+  copy:
+    src: k8sbin/{{ k8s_release }}/kubectl
+    dest: /usr/local/bin/kubectl
+    mode: 0755
+  tags:
+    - kubectl
+    - k8s
+
+- name: Create kubernetes related directory
+  file:
+    path: "{{ item }}"
+    state: directory
+  with_items:
+    - /etc/kubernetes
+  tags:
+    - kubectl
+    - k8s
+
+- name: Create kubeconfig file for kube-master
+  template:
+    src: "kubeconfig.j2"
+    dest: "{{ kubeconfig_path }}"
+  tags:
+    - kubectl
+    - k8s
+
+- name: Create k8s_env.sh to store k8s env
+  shell: if [ ! -f /etc/profile.d/k8s_env.sh ]; then touch /etc/profile.d/k8s_env.sh; fi
+  tags:
+    - kubectl
+    - k8s
+
+- name: Set k8s enviroment
+  template:
+    src: "k8s_env.sh.j2"
+    dest: "/etc/profile.d/k8s_env.sh"
+  tags:
+    - kubectl
+    - k8s
+
+- name: let k8s env take effect
+  shell: "source /etc/profile.d/k8s_env.sh"
+  tags:
+    - kubectl
+    - k8s

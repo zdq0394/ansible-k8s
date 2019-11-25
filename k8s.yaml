@@ -1,0 +1,36 @@
+---
+- hosts: [hosts]
+  roles:
+  - base
+  - chrony
+  - docker
+
+- hosts: [etcds]
+  roles:
+  - etcd
+
+- hosts: [k8s]
+  roles:
+  - kube-deps
+
+- hosts: [masters]
+  roles:
+  - kube-apiserver
+
+- hosts: [haproxy]
+  roles:
+  - haproxy
+
+- hosts: [masters]
+  roles:
+  - kube-controller-manager
+  - kube-scheduler
+  - kubectl
+
+- hosts: [nodes]
+  roles:
+  - kubelet
+  - kube-proxy
+
+
+

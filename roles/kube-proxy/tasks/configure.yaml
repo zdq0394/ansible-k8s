@@ -1,0 +1,11 @@
+---
+- name: Create kube-proxy log directory
+  file: 
+    path: "{{ item }}"
+    state: "directory"
+  with_items:
+    - "{{ kube_log_dir }}/kube-proxy"
+  tags:
+    - k8s
+    - node
+    - kube-proxy 

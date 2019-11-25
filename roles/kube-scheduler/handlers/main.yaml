@@ -1,0 +1,7 @@
+---
+# handlers file for k8s-master
+- name: Systemd Reload
+  command: systemctl daemon-reload
+
+- name: Restart Kube-scheduler
+  command: systemctl restart kube-scheduler.service

@@ -1,0 +1,43 @@
+[masters]
+192.168.56.101
+192.168.56.102
+192.168.56.103
+
+[nodes]
+192.168.56.101
+192.168.56.102
+192.168.56.103
+
+[k8s:children]
+masters
+nodes
+
+[etcds]
+192.168.56.101
+192.168.56.102
+192.168.56.103
+
+[registry]
+192.168.56.101
+
+[hosts:children]
+masters
+nodes
+etcds
+registry
+
+[haproxy]
+192.168.56.101
+
+[kubectl-run-host]
+192.168.56.101
+
+
+### variables
+[all:vars]
+# etcd server
+kube_etcd_servers=["http://192.168.56.101:2379","http://192.168.56.102:2379","http://192.168.56.103:2379"]
+
+# apiserver for kubectl/controller-manager/scheduler to connect
+apiserver_endpoint='http://192.168.56.101:80'
+apiserver_endpoint_https='https://192.168.56.101:443'

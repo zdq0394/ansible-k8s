@@ -1,0 +1,11 @@
+---
+- name: Create kube-scheduler log directory
+  file:
+    path: "{{ item }}"
+    state: "directory"
+  with_items:
+    - "{{ kube_log_dir }}/kube-scheduler"
+  tags:
+    - k8s
+    - master
+    - scheduler

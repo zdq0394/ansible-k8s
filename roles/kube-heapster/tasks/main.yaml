@@ -1,0 +1,50 @@
+---
+- name: configure heapster deployment directory
+  file: path={{ item }} state=directory
+  with_items:
+    - /var/lib/k8s-deploy/heapster
+  tags:
+    - k8s
+    - heapster
+
+- name: copy heapster related yaml
+  template: 
+    src: "{{ item }}.yaml.j2"
+    dest: "/var/lib/k8s-deploy/heapster/{{ item }}.yaml"
+  with_items:
+    - influxdb
+    - heapster
+    - grafana
+  tags:
+    - k8s
+    - heapster
+
+- name: deploy heapster
+  command: "kubectl apply -f /var/lib/k8s-deploy/heapster/{{ item }}.yaml"
+  with_items:
+    - influxdb
+    - heapster
+    - grafana
+  tags:
+    - k8s
+    - heapster
+
+- name: undeploy heapster
+  command: "kubectl delete -f /var/lib/k8s-deploy/heapster/{{ item }}.yaml"
+  with_items:
+    - influxdb
+    - heapster
+    - grafana
+  tags:
+    - uninstall
+    - uninstall-k8s
+    - uninstall-heapster
+
+- name: remove heapster yaml
+  file: 
+    path="/var/lib/k8s-deploy/heapster"
+    state="absent"
+  tags:
+    - uninstall
+    - uninstall-k8s
+    - uninstall-heapster

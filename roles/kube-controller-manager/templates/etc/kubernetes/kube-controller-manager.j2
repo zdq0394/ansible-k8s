@@ -1,0 +1,9 @@
+KUBE_CONTROLLER_ARGS="--kubeconfig=/var/lib/kubernetes/kube-controller-manager.kubeconfig \
+  --leader-elect=true \
+  --service-account-private-key-file={{ service_account_private_key_file }} \
+  --root-ca-file={{ ca_crt }} \
+  --cluster-signing-cert-file={{ ca_crt }} \
+  --cluster-signing-key-file={{ ca_key }} \
+  --log-dir={{ kube_log_dir }}/kube-controller-manager \
+  --logtostderr=false \
+  --v=2"

@@ -1,0 +1,19 @@
+---
+# handlers file for k8s-master
+- include_tasks: configure.yaml
+  tags:
+    - k8s
+    - master
+    - controller-manager
+
+- include_tasks: controller-manager.yaml
+  tags:
+    - k8s
+    - master
+    - controller-manager
+
+- include_tasks: uninstall.yaml
+  tags:
+    - uninstall
+    - uninstall-k8s
+    - uninstall-kube-controller-manager

@@ -1,0 +1,23 @@
+---
+- include_tasks: configure.yaml
+  tags:
+    - k8s
+    - master
+    - node
+    - apiserver
+    - controller-manager
+    - scheduler
+    - kube-proxy
+    - kubelet
+
+- include_tasks: uninstall.yaml
+  tags:
+    - uninstall
+    - uninstall-k8s
+
+- include_tasks: cert.yaml
+  tags:
+    - k8s
+    - master
+    - node
+    - cert

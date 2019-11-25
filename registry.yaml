@@ -1,0 +1,7 @@
+---
+- hosts: [registry]
+  vars:
+    docker_insecure_registry: '["127.0.0.1:5000"]'
+  roles:
+  - docker
+  - registry

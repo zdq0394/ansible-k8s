@@ -1,0 +1,19 @@
+---
+
+- name: Mount root rshared
+  shell: mount --make-rshared /
+
+- name: Systemd Reload
+  command: systemctl daemon-reload
+
+- name: Restart sshd
+  command: systemctl restart sshd
+
+- name: Restart NetworkManager
+  service: name=NetworkManager state=restarted
+
+- name: Regenerate Grub Configuration
+  command: /usr/sbin/grub2-mkconfig -o /boot/grub2/grub.cfg
+
+- name: Crond Reload
+  service: name=crond state=reloaded

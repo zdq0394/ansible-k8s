@@ -1,0 +1,25 @@
+---
+# tasks file for registry
+- name: create volume data
+  file:
+    path: "{{registry_volume}}"
+    state: directory
+  tags:
+    - registry
+
+- name: run docker registry v2
+  shell: "docker run --name registry26 -d -p {{registry_port}}:5000 -v {{registry_volume}}:/var/lib/registry {{registry_image}}"
+  tags:
+    - registry
+
+- name: stop docker container registry v2
+  shell: "docker stop registry26"
+  tags:
+    - uninstall
+    - uninstall-docker-registry
+
+- name: rm docker container registry v2
+  shell: "docker rm registry26"
+  tags:
+    - uninstall
+    - uninstall-docker-registry

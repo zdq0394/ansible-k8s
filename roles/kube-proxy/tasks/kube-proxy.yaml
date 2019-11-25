@@ -1,0 +1,57 @@
+---
+- name: Copy kube-proxy
+  copy:
+      src: k8sbin/{{ k8s_release }}/kube-proxy
+      dest: /usr/local/bin/kube-proxy
+      mode: 0755
+  notify: 
+    - Systemd Reload
+    - Restart Kube-Proxy
+  tags: 
+    - k8s
+    - node
+    - kube-proxy
+
+- name: Create kubeconfig file for kube-proxy
+  template:
+    src: "kubeconfig-node-https.j2"
+    dest: "/var/lib/kubernetes/kube-proxy.kubeconfig"
+  notify: Systemd Reload
+  tags:
+    - k8s
+    - node
+    - kube-proxy
+
+- name: Copy kube-proxy env file
+  template: src=etc/kubernetes/kube-proxy.j2 dest=/etc/kubernetes/kube-proxy
+  notify: 
+    - Systemd Reload
+    - Restart Kube-Proxy
+  tags: 
+    - k8s
+    - node
+    - kube-proxy
+
+- name: Config systemd kube-proxy.service
+  template: src=kube-proxy.service.j2 dest=/usr/lib/systemd/system/kube-proxy.service
+  notify: 
+    - Systemd Reload
+    - Restart Kube-Proxy
+  tags: 
+    - k8s
+    - node
+    - kube-proxy
+
+- name: Systemd Reload
+  command: systemctl daemon-reload
+  tags: 
+    - k8s
+    - node
+    - kube-proxy
+
+- name: Start kube-proxy on boot
+  service: name=kube-proxy.service enabled=True state=started
+  tags: 
+    - k8s
+    - node
+    - kube-proxy

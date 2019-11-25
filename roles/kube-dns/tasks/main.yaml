@@ -1,0 +1,41 @@
+---
+- name: configure kube-dns deployment directory
+  file: path={{ item }} state=directory
+  with_items:
+    - /var/lib/k8s-deploy/kube-dns
+  tags:
+    - k8s
+    - kube-network
+    - kube-dns
+
+- name: copy kube-dns.yaml
+  template: src=kube-dns.yaml.j2 dest=/var/lib/k8s-deploy/kube-dns/kube-dns.yaml
+  tags:
+    - k8s
+    - kube-network
+    - kube-dns
+
+- name: deploy kube-dns
+  command: kubectl apply -f /var/lib/k8s-deploy/kube-dns/kube-dns.yaml
+  tags:
+    - k8s
+    - kube-network
+    - kube-dns
+
+- name: undeploy kube-dns
+  command: kubectl delete -f /var/lib/k8s-deploy/kube-dns/kube-dns.yaml
+  tags:
+    - uninstall
+    - uninstall-k8s
+    - uninstall-kube-network
+    - uninstall-kube-dns
+
+- name: remove kube-dns yaml
+  file: 
+    path="/var/lib/k8s-deploy/kube-dns"
+    state="absent"
+  tags:
+    - uninstall
+    - uninstall-k8s
+    - uninstall-kube-network
+    - uninstall-kube-dns

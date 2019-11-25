@@ -1,0 +1,79 @@
+---
+kind: ServiceAccount
+apiVersion: v1
+metadata:
+  name: cluster-proportional-autoscaler
+  namespace: kube-system
+---
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: cluster-proportional-autoscaler
+rules:
+  - apiGroups: [""]
+    resources: ["nodes"]
+    verbs: ["list", "watch"]
+  - apiGroups: [""]
+    resources: ["replicationcontrollers/scale"]
+    verbs: ["get", "update"]
+  - apiGroups: ["extensions","apps"]
+    resources: ["deployments/scale", "replicasets/scale"]
+    verbs: ["get", "update"]
+  - apiGroups: [""]
+    resources: ["configmaps"]
+    verbs: ["get", "create"]
+---
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: cluster-proportional-autoscaler
+subjects:
+  - kind: ServiceAccount
+    name: cluster-proportional-autoscaler
+    namespace: kube-system
+roleRef:
+  kind: ClusterRole
+  name: cluster-proportional-autoscaler
+  apiGroup: rbac.authorization.k8s.io
+---
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: coredns-autoscaler
+  namespace: kube-system
+data:
+  linear: |-
+    {
+      "coresPerReplica": 8,
+      "nodesPerReplica": 1,
+      "preventSinglePointFailure": true
+    }
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: coredns-autoscaler
+  namespace: kube-system
+  labels:
+    app: coredns-autoscaler
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: coredns-autoscaler
+  template:
+    metadata:
+      labels:
+        app: coredns-autoscaler
+    spec:
+      serviceAccountName: cluster-proportional-autoscaler
+      containers:
+        - image: {{ autoscaler_image }}
+          name: coredns-autoscaler
+          command:
+            - /cluster-proportional-autoscaler
+            - --namespace=kube-system
+            - --configmap=coredns-autoscaler
+            - --target=deployment/coredns
+            - --logtostderr=true
+            - --v=2

@@ -1,0 +1,56 @@
+---
+- name: Copy scheduler
+  copy:
+      src: k8sbin/{{ k8s_release }}/kube-scheduler
+      dest: /usr/local/bin/kube-scheduler
+      mode: 0755
+  notify: 
+    - Systemd Reload
+    - Restart Kube-scheduler
+  tags: 
+    - k8s
+    - master
+    - scheduler
+
+- name: Create kubeconfig file for kube-scheduler
+  template:
+    src: kubeconfig_https.j2
+    dest: "/var/lib/kubernetes/kube-scheduler.kubeconfig"
+  tags:
+    - k8s
+    - master
+    - scheduler
+
+- name: Config system envfile
+  template: src=etc/kubernetes/kube-scheduler.j2 dest=/etc/kubernetes/kube-scheduler
+  notify: 
+    - Systemd Reload
+    - Restart Kube-scheduler
+  tags: 
+    - k8s
+    - master
+    - scheduler
+
+- name: Config systemd kube-scheduler.service
+  template: src=kube-scheduler.service.j2 dest=/usr/lib/systemd/system/kube-scheduler.service
+  notify: 
+    - Systemd Reload
+    - Restart Kube-scheduler
+  tags: 
+    - k8s
+    - master
+    - scheduler
+
+- name: Systemd Reload
+  command: systemctl daemon-reload
+  tags: 
+    - k8s
+    - master
+    - scheduler
+
+- name: Start kube-scheduler on boot
+  service: name=kube-scheduler.service enabled=True state=started
+  tags: 
+    - k8s
+    - master
+    - scheduler

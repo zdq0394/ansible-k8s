@@ -1,0 +1,50 @@
+---
+- name: configure coredns deployment directory
+  file: path={{ item }} state=directory
+  with_items:
+    - /var/lib/k8s-deploy/coredns
+  tags:
+    - k8s
+    - kube-network
+    - coredns
+
+- name: copy coredns.yaml
+  template: src={{ item }}.j2 dest=/var/lib/k8s-deploy/coredns/{{ item }}
+  with_items:
+    - coredns.yaml
+    - coredns.autoscaler.yaml
+  tags:
+    - k8s
+    - kube-network
+    - coredns
+
+- name: deploy coredns
+  command: kubectl apply -f /var/lib/k8s-deploy/coredns/{{ item }}
+  with_items:
+    - coredns.yaml
+    - coredns.autoscaler.yaml
+  tags:
+    - k8s
+    - kube-network
+    - coredns
+
+- name: undeploy coredns
+  command: kubectl delete -f /var/lib/k8s-deploy/coredns/{{ item }}
+  with_items:
+    - coredns.yaml
+    - coredns.autoscaler.yaml
+  tags:
+    - uninstall
+    - uninstall-k8s
+    - uninstall-kube-network
+    - uninstall-coredns
+
+- name: remove coredns yaml
+  file: 
+    path="/var/lib/k8s-deploy/coredns"
+    state="absent"
+  tags:
+    - uninstall
+    - uninstall-k8s
+    - uninstall-kube-network
+    - uninstall-coredns

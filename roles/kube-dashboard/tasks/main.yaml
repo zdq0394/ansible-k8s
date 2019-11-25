@@ -1,0 +1,50 @@
+---
+- name: configure kubernetes-dashboard deployment directory
+  file: path={{ item }} state=directory
+  with_items:
+    - /var/lib/k8s-deploy/kubernetes-dashboard
+  tags:
+    - k8s
+    - dashboard
+
+- name: copy kubernetes-dashboard related yaml
+  template: 
+    src: "{{ item }}.yaml.j2"
+    dest: "/var/lib/k8s-deploy/kubernetes-dashboard/{{ item }}.yaml"
+  with_items:
+    - kubernetes_dashboard_admin
+    - kubernetes_dashboard_http
+  tags:
+    - k8s
+    - dashboard
+
+- name: deploy kubernetes-dashboard
+  command: "kubectl apply -f /var/lib/k8s-deploy/kubernetes-dashboard/{{ item }}.yaml"
+  with_items:
+    - kubernetes_dashboard_admin
+    - kubernetes_dashboard_http
+  tags:
+    - k8s
+    - dashboard
+
+- name: undeploy kubernetes-dashboard
+  command: "kubectl delete -f /var/lib/k8s-deploy/kubernetes-dashboard/{{ item }}.yaml"
+  with_items:
+    - kubernetes_dashboard_admin
+    - kubernetes_dashboard_http
+  tags:
+    - uninstall
+    - uninstall-k8s
+    - uninstall-dashboard
+
+- name: remove kubernetes-dashboard yaml
+  file: 
+    path="/var/lib/k8s-deploy/kubernetes-dashboard"
+    state="absent"
+  tags:
+    - uninstall
+    - uninstall-k8s
+    - uninstall-dashboard
+
+
+  

@@ -1,0 +1,18 @@
+---
+- name: stop service kube-apiserver
+  service: 
+    name: kube-apiserver.service
+    state: stopped
+  tags:
+    - uninstall
+    - uninstall-k8s
+    - uninstall-kube-apiserver
+
+- name: remove kube-apiserver related config
+  file:
+    path: "/usr/lib/systemd/system/kube-apiserver.service"
+    state: "absent"
+  tags:
+    - uninstall
+    - uninstall-k8s
+    - uninstall-kube-apiserver

@@ -1,0 +1,11 @@
+---
+- name: Create kube-apiserver log directory
+  file:
+    path: "{{ item }}"
+    state: "directory"
+  with_items:
+    - "{{ kube_log_dir }}/kube-apiserver"
+  tags:
+    - k8s
+    - master
+    - apiserver

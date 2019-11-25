@@ -1,0 +1,4 @@
+---
+kube_dns_image: registry.docker-cn.com/zdq0394/k8s-dns-kube-dns-amd64:1.14.10
+kube_dnsmasq_image: registry.docker-cn.com/zdq0394/k8s-dns-dnsmasq-nanny-amd64:1.14.10
+kube_dns_sidecar_image: registry.docker-cn.com/zdq0394/k8s-dns-sidecar-amd64:1.14.10
