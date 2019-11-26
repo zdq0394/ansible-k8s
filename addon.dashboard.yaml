@@ -1,5 +1,0 @@
----
-- hosts: [kubectl-run-host]
-  roles:
-    - kube-heapster
-    - kube-dashboard
