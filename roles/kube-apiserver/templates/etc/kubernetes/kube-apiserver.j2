@@ -7,7 +7,7 @@ KUBE_APISERVER_ARGS="--allow-privileged=true \
   --authorization-mode=RBAC \
   --service-cluster-ip-range={{ service_cluster_ip_range }} \
   --service-node-port-range={{ service_node_port_range }} \
-  --enable-admission-plugins=ServiceAccount,NamespaceLifecycle,NamespaceExists,LimitRanger,ResourceQuota \
+  --enable-admission-plugins=ServiceAccount,NamespaceLifecycle,NamespaceExists,LimitRanger,ResourceQuota,MutatingAdmissionWebhook,ValidatingAdmissionWebhook \
   --tls-cert-file={{ server_crt }} \
   --tls-private-key-file={{ server_key }} \
   --service-account-key-file={{ service_account_key_file }} \
