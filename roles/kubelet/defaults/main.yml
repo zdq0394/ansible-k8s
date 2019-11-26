@@ -1,5 +1,5 @@
 ---
 # defaults file for k8s-node
 apiserver_endpoint: 'http://127.0.0.1:8080'
-kube_reserved_cpu: 1000m
+kube_reserved_cpu: 100m
 kube_reserved_memory: 1Gi

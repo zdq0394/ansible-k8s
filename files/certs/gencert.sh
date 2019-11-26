@@ -1,5 +1,6 @@
 #! /usr/bin/sh
-export MASTER_IP=192.168.56.101
+mkdir -p keys
+export MASTER_IP=192.168.56.102
 # ca
 # MASTER_IP是主节点的IP
 openssl genrsa -out keys/ca.key 2048

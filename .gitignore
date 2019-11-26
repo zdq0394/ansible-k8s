@@ -1,3 +1,4 @@
 files/k8sbin
 files/etcd
+files/calico
 files/certs/keys
