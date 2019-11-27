@@ -22,6 +22,16 @@
     - master
     - apiserver
 
+- name: Config token auth file
+  template: src=etc/kubernetes/token_auth_file.j2 dest=/etc/kubernetes/token_auth_file
+  notify:
+    - Systemd Reload
+    - Restart Kube-apiserver
+  tags:
+    - k8s
+    - master
+    - apiserver
+
 - name: Config systemd kube-apiserver.service
   template: src=kube-apiserver.service.j2 dest=/usr/lib/systemd/system/kube-apiserver.service
   notify: 

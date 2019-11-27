@@ -4,6 +4,7 @@ KUBE_APISERVER_ARGS="--allow-privileged=true \
   --insecure-port=8080 \
   --bind-address=0.0.0.0 \
   --secure-port=6443 \
+  --token-auth-file=/etc/kubernetes/token_auth_file \
   --authorization-mode=RBAC \
   --service-cluster-ip-range={{ service_cluster_ip_range }} \
   --service-node-port-range={{ service_node_port_range }} \

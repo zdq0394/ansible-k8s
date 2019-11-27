@@ -26,6 +26,7 @@
   - kube-controller-manager
   - kube-scheduler
   - kubectl
+  - kube-clusterrolebinding
 
 - hosts: [nodes]
   roles:

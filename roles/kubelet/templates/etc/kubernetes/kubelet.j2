@@ -1,4 +1,6 @@
-KUBELET_ARGS="--kubeconfig=/var/lib/kubernetes/kubelet.kubeconfig \
+KUBELET_ARGS="--bootstrap-kubeconfig=/var/lib/kubernetes/kubelet.kubeconfig \
+    --kubeconfig="/var/lib/kubernetes/rotate_kubeconfig" \
+    --rotate-certificates \
     --network-plugin=cni \
     --network-plugin-mtu=1460 \
     --cni-conf-dir=/etc/cni/net.d \
