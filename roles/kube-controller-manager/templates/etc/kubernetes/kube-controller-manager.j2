@@ -5,7 +5,7 @@ KUBE_CONTROLLER_ARGS="--kubeconfig=/var/lib/kubernetes/kube-controller-manager.k
   --client-ca-file={{ ca_crt }} \
   --cluster-signing-cert-file={{ ca_crt }} \
   --cluster-signing-key-file={{ ca_key }} \
-  --experimental-cluster-signing-duration=1h
+  --experimental-cluster-signing-duration=1h \
   --log-dir={{ kube_log_dir }}/kube-controller-manager \
   --logtostderr=false \
   --v=2"
