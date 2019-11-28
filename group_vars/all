@@ -70,3 +70,6 @@ csi_enabled: True
 
 ########################################### docker ##################################
 docker_insecure_registry: '["127.0.0.1:5000"]'
+
+########################################### kubelet token auth file token ###########
+token_auth_file_token: token_auth_file_token

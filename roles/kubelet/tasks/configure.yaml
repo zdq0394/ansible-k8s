@@ -19,10 +19,10 @@
     - node
     - kubelet
 
-- name: Create kubeconfig file for kubelet
+- name: Create bootstrap_kubeconfig file for kubelet
   template: 
-    src: "kubeconfig-node-https.j2"
-    dest: "/var/lib/kubernetes/kubelet.kubeconfig"
+    src: "bootstrap_kubeconfig.j2"
+    dest: "/var/lib/kubernetes/bootstrap_kubeconfig"
   notify: Systemd Reload
   tags: 
     - k8s

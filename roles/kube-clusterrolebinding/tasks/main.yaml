@@ -1,5 +1,5 @@
 ---
-- name: configure clusterrolebinding deployment directory
+- name: configure kubelet_clusterrolebinding deployment directory
   file: path={{ item }} state=directory
   with_items:
     - /var/lib/k8s-deploy/kubelet_clusterrolebinding
@@ -7,7 +7,7 @@
     - k8s
     - kubelet
 
-- name: copy kubelet_clusterrolebinding.yaml
+- name: copy clusterrolebinding_for_kubelet_certificate.yaml
   template: src={{ item }}.j2 dest=/var/lib/k8s-deploy/kubelet_clusterrolebinding/{{ item }}
   with_items:
     - clusterrolebinding_for_kubelet_certificate.yaml
@@ -32,7 +32,7 @@
     - uninstall-k8s
     - uninstall-kubelet
 
-- name: remove kubelet_clusterrolebinding yaml
+- name: remove clusterrolebinding_for_kubelet_certificate.yaml
   file: 
     path="/var/lib/k8s-deploy/kubelet_clusterrolebinding"
     state="absent"
