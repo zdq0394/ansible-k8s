@@ -7,10 +7,11 @@
     - k8s
     - kubelet
 
-- name: copy clusterrolebinding_for_kubelet_certificate.yaml
+- name: copy clusterrolebinding yaml files
   template: src={{ item }}.j2 dest=/var/lib/k8s-deploy/kubelet_clusterrolebinding/{{ item }}
   with_items:
     - clusterrolebinding_for_kubelet_certificate.yaml
+    - clusterrolebinding_system_node.yaml
   tags:
     - k8s
     - kubelet
@@ -19,6 +20,7 @@
   command: kubectl apply -f /var/lib/k8s-deploy/kubelet_clusterrolebinding/{{ item }}
   with_items:
     - clusterrolebinding_for_kubelet_certificate.yaml
+    - clusterrolebinding_system_node.yaml
   tags:
     - k8s
     - kubelet
@@ -32,7 +34,7 @@
     - uninstall-k8s
     - uninstall-kubelet
 
-- name: remove clusterrolebinding_for_kubelet_certificate.yaml
+- name: remove kubelet_clusterrolebinding files
   file: 
     path="/var/lib/k8s-deploy/kubelet_clusterrolebinding"
     state="absent"
