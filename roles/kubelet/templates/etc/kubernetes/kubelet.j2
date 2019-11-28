@@ -1,5 +1,5 @@
 KUBELET_ARGS="--bootstrap-kubeconfig=/var/lib/kubernetes/bootstrap_kubeconfig \
-    --kubeconfig="/var/lib/kubernetes/kubeconfig" \
+    --kubeconfig=/var/lib/kubernetes/kubeconfig \
     --rotate-certificates \
     --network-plugin=cni \
     --network-plugin-mtu=1460 \
