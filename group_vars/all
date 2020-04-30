@@ -1,7 +1,7 @@
 #################################### k8s version ####################################
 # k8s release version
 # v1.14.1
-k8s_release: v1.14.1
+k8s_release: v1.16.8
 
 #################################### docker pause images ############################
 pause_image: zdq0394/pause-amd64:3.1
@@ -53,7 +53,7 @@ chrony_server: '169.254.169.123 prefer iburst'
 etcd_interface: "enp0s3"
 
 # etcd version
-etcd_version: "3.2.23"
+etcd_version: "3.3.20"
 # Port where etcd listening for clients
 etcd_client_port: "2379"
 # Port where etcd is listening for it's peer's
