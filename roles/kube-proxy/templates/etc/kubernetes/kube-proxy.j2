@@ -1,4 +1,8 @@
 KUBE_PROXY_ARGS="--bind-address=0.0.0.0 \
+  --healthz-bind-address=0.0.0.0 \
+  --healthz-port=10256 \
+  --metrics-bind-address=0.0.0.0 \
+  --metrics-port=10249 \
   --proxy-mode=iptables \
   --cluster-cidr={{ calico_ipv4pool_cidr }} \
   --hostname-override={{ ansible_default_ipv4.address }} \

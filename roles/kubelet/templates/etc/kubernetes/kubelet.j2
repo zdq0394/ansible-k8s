@@ -1,5 +1,6 @@
 KUBELET_ARGS="--bootstrap-kubeconfig=/var/lib/kubernetes/bootstrap_kubeconfig \
     --kubeconfig=/var/lib/kubernetes/kubelet.kubeconfig \
+    --dynamic-config-dir=/var/lib/kubernetes/kubelet/dynamic_config_dir \
     --rotate-certificates \
     --network-plugin=cni \
     --network-plugin-mtu=1460 \
@@ -11,6 +12,7 @@ KUBELET_ARGS="--bootstrap-kubeconfig=/var/lib/kubernetes/bootstrap_kubeconfig \
     --cluster-dns={{ cluster_dns }} \
     --cluster-domain={{ cluster_domain }} \
     --max-pods=60 \
+    --pods-per-core=8 \
     --fail-swap-on=false \
     --enforce-node-allocatable=pods,kube-reserved \
     --cgroup-driver=cgroupfs \
@@ -23,4 +25,5 @@ KUBELET_ARGS="--bootstrap-kubeconfig=/var/lib/kubernetes/bootstrap_kubeconfig \
     --feature-gates=DevicePlugins=true \
     --logtostderr=false \
     --log-dir={{ kube_log_dir }}/kubelet \
+    --healthz-bind-address=0.0.0.0 \
     --v=2"
