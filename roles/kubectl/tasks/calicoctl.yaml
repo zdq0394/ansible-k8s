@@ -1,8 +1,0 @@
-- name: Install calicoctl
-  copy:
-    src: calico/calicoctl-v3.1.3
-    dest: /usr/local/bin/calicoctl
-    mode: 0755
-  tags:
-    - calicoctl
-    - k8s

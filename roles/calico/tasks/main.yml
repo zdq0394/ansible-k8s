@@ -1,4 +1,15 @@
 ---
+- name: Install calicoctl
+  copy:
+    src: calico/calicoctl-v3.1.3
+    dest: /usr/local/bin/calicoctl
+    mode: 0755
+  when: install_calicoctl
+  tags:
+    - k8s
+    - kube-network
+    - calico
+
 - name: configure calico deployment directory
   file: path={{ item }} state=directory
   with_items:

@@ -1,4 +1,5 @@
 ---
+install_calicoctl: False
 calico_node_image: registry.docker-cn.com/calico/node:v3.1.3
 calico_cni_image: registry.docker-cn.com/calico/cni:v3.1.3
 calico_kube_controllers_image: registry.docker-cn.com/calico/kube-controllers:v3.1.3
