@@ -9,3 +9,19 @@
     - k8s
     - node
     - kube-proxy 
+
+- name: Configure kube-proxy service account
+  copy: 
+      src: "certs/keys/{{ item }}"
+      dest: "{{ kube_ssl_dir }}/{{ item }}"
+      mode: 0644
+  with_items:
+    - ca.crt
+    - ca.key
+    - kube-proxy.crt
+    - kube-proxy.key
+  tags: 
+    - k8s
+    - node
+    - cert
+    - kube-proxy 

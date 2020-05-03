@@ -27,10 +27,6 @@
     - kube-controller-manager.key
     - kube-scheduler.crt
     - kube-scheduler.key
-    - kubelet.crt
-    - kubelet.key
-    - kube-proxy.crt
-    - kube-proxy.key
   tags: 
     - k8s
     - master

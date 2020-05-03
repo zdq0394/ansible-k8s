@@ -19,6 +19,22 @@
     - node
     - kubelet
 
+- name: Configure kubelet service account key/pub
+  copy: 
+      src: "certs/keys/{{ item }}"
+      dest: "{{ kube_ssl_dir }}/{{ item }}"
+      mode: 0644
+  with_items:
+    - ca.crt
+    - ca.key
+    - kubelet.crt
+    - kubelet.key
+  tags: 
+    - k8s
+    - node
+    - cert
+    - kubelet
+
 - name: Create bootstrap_kubeconfig file for kubelet
   template: 
     src: "bootstrap_kubeconfig.j2"
