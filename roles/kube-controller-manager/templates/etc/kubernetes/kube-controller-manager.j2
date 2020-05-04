@@ -1,5 +1,7 @@
 KUBE_CONTROLLER_ARGS="--kubeconfig=/var/lib/kubernetes/kube-controller-manager.kubeconfig \
   --leader-elect=true \
+  --bind-address=0.0.0.0 \
+  --secure-port=10257 \
   --service-account-private-key-file={{ service_account_private_key_file }} \
   --root-ca-file={{ ca_crt }} \
   --client-ca-file={{ ca_crt }} \

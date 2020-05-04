@@ -1,4 +1,9 @@
 KUBE_SCHEDULER_ARGS="--kubeconfig=/var/lib/kubernetes/kube-scheduler.kubeconfig \
+  --address=0.0.0.0 \
+  --port=10251 \
+  --bind-address=0.0.0.0 \
+  --secure-port=0 \
+  --leader-elect=true \
   --logtostderr=false \
   --log-dir={{ kube_log_dir }}/kube-scheduler \
   --v=2"
