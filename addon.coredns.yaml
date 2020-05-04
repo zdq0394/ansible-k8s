@@ -1,4 +1,4 @@
 ---
-- hosts: [kubectl-run-host]
+- hosts: [kubectlcmd]
   roles:
     - coredns

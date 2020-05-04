@@ -23,7 +23,7 @@ registry
 [haproxy]
 10.23.217.249
 
-[kubectl-run-host]
+[kubectlcmd]
 10.23.217.249
 
 ### variables

@@ -28,6 +28,10 @@
   - kubectl
   - kube-clusterrolebinding
 
+- hosts: [kubectlcmd]
+  roles:
+  - kubectl
+
 - hosts: [nodes]
   roles:
   - kubelet

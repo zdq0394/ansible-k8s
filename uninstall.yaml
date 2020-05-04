@@ -1,5 +1,5 @@
 ---
-# - hosts: [kubectl-run-host]
+# - hosts: [kubectlcmd]
 #   roles:
 #     - calico
 #     - kube-dns
