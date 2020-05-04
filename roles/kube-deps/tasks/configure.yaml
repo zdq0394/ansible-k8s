@@ -8,7 +8,7 @@
     - /var/lib/kubernetes
     - /var/lib/kubelet
     - /var/lib/kube-proxy
-    - "{{ kube_ssl_dir }}""
+    - "{{ kube_ssl_dir }}"
   tags:
     - k8s
     - master
