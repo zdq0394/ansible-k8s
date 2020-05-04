@@ -15,11 +15,3 @@
   tags:
     - uninstall
     - uninstall-k8s
-
-- include_tasks: cert.yaml
-  tags:
-    - k8s
-    - master
-    - node
-    - cert
-    - kube-deps

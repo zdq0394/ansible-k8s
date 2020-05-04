@@ -3,6 +3,7 @@
   package: 
     name: ceph-common
     state: present
+  when: install_ceph_common
   tags: 
     - k8s
     - node

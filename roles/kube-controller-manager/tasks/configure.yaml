@@ -9,3 +9,23 @@
     - k8s
     - master
     - controller-manager
+
+- name: Configure kube-controller-manager serviceaccount key/pub
+  copy: 
+      src: "certs/keys/{{ item }}"
+      dest: "{{ kube_ssl_dir }}/{{ item }}"
+      mode: 0644
+  with_items:
+    - ca.crt
+    - ca.key
+    - admin.crt
+    - admin.key
+    - serviceaccount.key
+    - serviceaccount.crt
+    - kube-controller-manager.crt
+    - kube-controller-manager.key
+  tags: 
+    - k8s
+    - master
+    - controller-manager
+    - cert

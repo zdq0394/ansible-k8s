@@ -66,7 +66,7 @@ kubernetes_dashboard_https_node_port: 60443
 kubernetes_dashboard_http_node_port: 60080
 
 ########################################### storage #################################
-csi_enabled: True
+install_ceph_common: True
 
 ########################################### docker ##################################
 docker_insecure_registry: '["127.0.0.1:5000"]'

@@ -9,3 +9,21 @@
     - k8s
     - master
     - scheduler
+
+- name: Configure kube-scheduler serviceaccount key/pub
+  copy: 
+      src: "certs/keys/{{ item }}"
+      dest: "{{ kube_ssl_dir }}/{{ item }}"
+      mode: 0644
+  with_items:
+    - ca.crt
+    - ca.key
+    - admin.crt
+    - admin.key
+    - kube-scheduler.crt
+    - kube-scheduler.key
+  tags: 
+    - k8s
+    - master
+    - scheduler
+    - cert
