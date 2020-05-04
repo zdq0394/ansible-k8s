@@ -15,5 +15,6 @@ KUBE_APISERVER_ARGS="--allow-privileged=true \
   --client-ca-file={{ ca_crt }} \
   --logtostderr=false \
   --log-dir={{ kube_log_dir }}/kube-apiserver \
+  --log-file-max-size=512 \
   --delete-collection-workers=2 \
   --v=2"

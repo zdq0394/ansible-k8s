@@ -7,7 +7,10 @@ KUBE_CONTROLLER_ARGS="--kubeconfig=/var/lib/kubernetes/kube-controller-manager.k
   --client-ca-file={{ ca_crt }} \
   --cluster-signing-cert-file={{ ca_crt }} \
   --cluster-signing-key-file={{ ca_key }} \
-  --experimental-cluster-signing-duration=1h \
-  --log-dir={{ kube_log_dir }}/kube-controller-manager \
+  --enable-hostpath-provisioner=true \
+  --large-cluster-size-threshold=50 \
+  --experimental-cluster-signing-duration=2160h \
   --logtostderr=false \
+  --log-dir={{ kube_log_dir }}/kube-controller-manager \
+  --log-file-max-size=512 \
   --v=2"

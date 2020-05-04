@@ -5,5 +5,7 @@ KUBE_SCHEDULER_ARGS="--kubeconfig=/var/lib/kubernetes/kube-scheduler.kubeconfig 
   --secure-port=0 \
   --leader-elect=true \
   --logtostderr=false \
+  --client-ca-file={{ ca_crt }} \
   --log-dir={{ kube_log_dir }}/kube-scheduler \
+  --log-file-max-size=512 \
   --v=2"

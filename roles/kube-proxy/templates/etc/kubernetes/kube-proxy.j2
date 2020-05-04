@@ -9,4 +9,5 @@ KUBE_PROXY_ARGS="--bind-address=0.0.0.0 \
   --kubeconfig=/var/lib/kubernetes/kube-proxy.kubeconfig \
   --logtostderr=false \
   --log-dir={{ kube_log_dir }}/kube-proxy \
+  --log-file-max-size=512 \
   --v=2"
