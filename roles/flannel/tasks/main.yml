@@ -32,7 +32,7 @@
   command: kubectl delete -f /var/lib/k8s-deploy/flannel/{{ item }}.yaml
   with_items:
     - flannel
-   tags:
+  tags:
     - uninstall
     - uninstall-k8s
     - uninstall-kube-network
