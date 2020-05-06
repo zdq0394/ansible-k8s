@@ -8,7 +8,7 @@ KUBE_PROXY_ARGS="--kubeconfig=/var/lib/kubernetes/kube-proxy.kubeconfig \
   --conntrack-tcp-timeout-close-wait=1h0m0s \
   --conntrack-tcp-timeout-established=24h0m0s \
   --udp-timeout=250ms \
-  --cluster-cidr={{ calico_ipv4pool_cidr }} \
+  --cluster-cidr={{ cluster_cidr }} \
   --hostname-override={{ ansible_default_ipv4.address }} \
   --logtostderr=false \
   --log-dir={{ kube_log_dir }}/kube-proxy \

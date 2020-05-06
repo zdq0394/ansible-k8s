@@ -13,4 +13,10 @@ KUBE_CONTROLLER_ARGS="--kubeconfig=/var/lib/kubernetes/kube-controller-manager.k
   --logtostderr=false \
   --log-dir={{ kube_log_dir }}/kube-controller-manager \
   --log-file-max-size=512 \
+{% if use_flannel %}
+  --allocate-node-cidrs=true \
+  --cluster-cidr={{ cluster_cidr }}
+{% endif %}
   --v=2"
+
+

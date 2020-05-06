@@ -1,3 +1,4 @@
 ---
 # defaults file for k8s-master
 apiserver_endpoint: 'http://127.0.0.0:8080'
+use_flannel: False
