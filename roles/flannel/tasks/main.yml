@@ -1,0 +1,49 @@
+---
+- name: configure flannel deployment directory
+  file: path={{ item }} state=directory
+  with_items:
+    - /var/lib/k8s-deploy/flannel
+  tags:
+    - k8s
+    - kube-network
+    - flannel
+
+- name: copy flannel.yaml
+  template: 
+    src: "{{ item }}.yaml.j2"
+    dest: "/var/lib/k8s-deploy/flannel/{{ item }}.yaml"
+  with_items:
+    - flannel
+  tags:
+    - k8s
+    - kube-network
+    - flannel
+
+- name: deploy flannel
+  command: kubectl apply -f /var/lib/k8s-deploy/flannel/{{ item }}.yaml
+  with_items:
+    - flannel
+  tags:
+    - k8s
+    - kube-network
+    - flannel
+
+- name: undeploy flannel
+  command: kubectl delete -f /var/lib/k8s-deploy/flannel/{{ item }}.yaml
+  with_items:
+    - flannel
+   tags:
+    - uninstall
+    - uninstall-k8s
+    - uninstall-kube-network
+    - uninstall-flannel
+
+- name: remove flannel yaml
+  file: 
+    path="/var/lib/k8s-deploy/flannel"
+    state="absent"
+  tags:
+    - uninstall
+    - uninstall-k8s
+    - uninstall-kube-network
+    - uninstall-flannel
