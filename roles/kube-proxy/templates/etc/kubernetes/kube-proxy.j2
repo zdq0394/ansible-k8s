@@ -1,12 +1,15 @@
-KUBE_PROXY_ARGS="--bind-address=0.0.0.0 \
+KUBE_PROXY_ARGS="--kubeconfig=/var/lib/kubernetes/kube-proxy.kubeconfig \
+  --bind-address=0.0.0.0 \
   --healthz-bind-address=0.0.0.0 \
   --healthz-port=10256 \
   --metrics-bind-address=0.0.0.0 \
   --metrics-port=10249 \
   --proxy-mode=iptables \
+  --conntrack-tcp-timeout-close-wait=1h0m0s \
+  --conntrack-tcp-timeout-established=24h0m0s \
+  --udp-timeout=250ms \
   --cluster-cidr={{ calico_ipv4pool_cidr }} \
   --hostname-override={{ ansible_default_ipv4.address }} \
-  --kubeconfig=/var/lib/kubernetes/kube-proxy.kubeconfig \
   --logtostderr=false \
   --log-dir={{ kube_log_dir }}/kube-proxy \
   --log-file-max-size=512 \
