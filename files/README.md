@@ -1,3 +1,3 @@
 # files
 * files/etcd
-* k8sbin/
+* k8sbin/$version
